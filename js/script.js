@@ -1,36 +1,65 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const sections = document.querySelectorAll('.section');
+// Scroll reveal effect
+const reveals = document.querySelectorAll(".reveal");
 
-  const revealOnScroll = () => {
-    const trigger = window.innerHeight * 0.85;
-    sections.forEach(section => {
-      const rect = section.getBoundingClientRect();
-      if (rect.top < trigger) {
-        section.classList.add('show');
-      }
-    });
-  };
+window.addEventListener("scroll", () => {
+  reveals.forEach((el) => {
+    const windowHeight = window.innerHeight;
+    const revealTop = el.getBoundingClientRect().top;
+    const revealPoint = 100;
 
-  window.addEventListener('scroll', revealOnScroll);
-  revealOnScroll(); // initial call
+    if (revealTop < windowHeight - revealPoint) {
+      el.classList.add("active");
+    }
+  });
 });
 
-// Contact form
-document.getElementById('contact-form').addEventListener('submit', function (e) {
-  e.preventDefault();
-  alert('Pesan Anda telah dikirim!');
+// Navbar color change on scroll
+const header = document.getElementById("header");
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 50) {
+    header.classList.add("scrolled");
+  } else {
+    header.classList.remove("scrolled");
+  }
 });
 
-// Sticky Navbar Hide on Scroll Down
-let lastScrollTop = 0;
-const navbar = document.querySelector('.navbar');
+// Back to top button
+const backToTop = document.getElementById("backToTop");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 300) {
+    backToTop.style.display = "block";
+  } else {
+    backToTop.style.display = "none";
+  }
+});
+
+backToTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// Smooth Scroll Animation on Section Appear
+const sections = document.querySelectorAll('.section');
 
 window.addEventListener('scroll', () => {
-  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  if (scrollTop > lastScrollTop) {
-    navbar.classList.add('hide'); // scroll down
-  } else {
-    navbar.classList.remove('hide'); // scroll up
-  }
-  lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  sections.forEach(sec => {
+    const rect = sec.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+      sec.style.opacity = "1";
+      sec.style.transform = "translateY(0)";
+    }
+  });
+});
+
+// Reveal effect saat scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll(".section").forEach(section => {
+  observer.observe(section);
 });
