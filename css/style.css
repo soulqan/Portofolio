@@ -602,17 +602,17 @@ footer {
   }
 
    .about-container {
-    flex-direction: column; /* ubah dari row ke column */
-    align-items: center;    /* tengah secara horizontal */
-    text-align: center;     /* tengahin teks juga */
-    gap: 1.5rem;            /* beri jarak antar elemen */
+    flex-direction: column; 
+    align-items: center;    
+    text-align: center;     
+    gap: 1.5rem;            
   }
 
   .about-container img {
-    width: 200px;           /* sesuaikan ukuran foto */
+    width: 200px;          
     height: auto;
-    border-radius: 20px;    /* biar tetap smooth */
-    margin: 0 auto;         /* pastikan benar-benar di tengah */
+    border-radius: 20px;    
+    margin: 0 auto;         
     display: block;
   }
 
