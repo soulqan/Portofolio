@@ -1,3 +1,4 @@
+console.log("✅ JS loaded!");
 // Scroll reveal effect
 const reveals = document.querySelectorAll(".reveal");
 
@@ -23,21 +24,6 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// Back to top button
-const backToTop = document.getElementById("backToTop");
-
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 300) {
-    backToTop.style.display = "block";
-  } else {
-    backToTop.style.display = "none";
-  }
-});
-
-backToTop.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
 // Smooth Scroll Animation on Section Appear
 const sections = document.querySelectorAll('.section');
 
@@ -51,15 +37,31 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// Reveal effect saat scroll
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("show");
-    }
-  });
-}, { threshold: 0.1 });
 
-document.querySelectorAll(".section").forEach(section => {
-  observer.observe(section);
+document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.getElementById("menu-toggle");
+  const navLinks = document.getElementById("nav-links");
+
+  if (!menuToggle || !navLinks) {
+    console.warn("⚠️ menu-toggle atau nav-links tidak ditemukan di DOM!");
+    return;
+  }
+
+  menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("show");
+    const icon = menuToggle.querySelector("i");
+    icon.classList.toggle("fa-bars");
+    icon.classList.toggle("fa-xmark");
+  });
+
+  document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("show");
+      const icon = menuToggle.querySelector("i");
+      icon.classList.add("fa-bars");
+      icon.classList.remove("fa-xmark");
+    });
+  });
 });
+
+
